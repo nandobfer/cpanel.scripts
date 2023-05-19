@@ -27,6 +27,7 @@ else
 
         # cpapi2 --user=casaludica SubDomain addsubdomain domain=franquia.casaludica.com.br rootdomain=casaludica.com.br dir=public_html/franquiateste
     elif [ "$1" == "delete" ]
+    then
         echo "delete command detected"
         # cpapi2 --user=casaludica SubDomain delsubdomain domain=franquias.casaludica.com.br
     else
