@@ -1,0 +1,35 @@
+#!/usr/bin/sh
+
+if [ -z "$1" ]
+then
+    echo "usage: subdomain create user=username domain=domain.com dir=public_html/example"
+else
+    if [ "$1" == "create" ]
+    then
+        echo "create command detected"
+        shift  # This will shift the positional parameters, effectively removing $1
+        for arg in "$@"; do
+            IFS='=' read -r key value <<< "$arg"
+            case "$key" in
+                user) user=$value ;;
+                domain) domain=$value ;;
+                dir) dir=$value ;;
+                *) echo "Unknown argument $key. Exiting."; exit 1 ;;
+            esac
+        done
+
+        # Now you can use the variables $user, $domain, and $dir
+        echo "User: $user"
+        echo "Domain: $domain"
+        echo "Directory: $dir"
+
+        # cpapi2 --user=casaludica SubDomain addsubdomain domain=franquia.casaludica.com.br rootdomain=casaludica.com.br dir=public_html/franquiateste
+    elif ["$1" == "delete"]
+        echo "delete command detected"
+        exit 1
+    fi
+
+    # Process the rest of the arguments
+
+
+fi
