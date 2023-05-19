@@ -1,0 +1,3 @@
+#!/usr/bin/sh
+
+whmapi1 showbw searchtype=user search=$1 year $(date +'%Y') month $(date +'%m') --output=jsonpretty

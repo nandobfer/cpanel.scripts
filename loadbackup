@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+
+cd /root/auto_backup
+python3 loadBackup.py $1

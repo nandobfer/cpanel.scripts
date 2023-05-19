@@ -1,0 +1,7 @@
+#!/usr/bin/sh
+
+git pull
+npx prisma generate
+yarn build
+pm2 restart $1
+pm2 logs $1 --lines=100

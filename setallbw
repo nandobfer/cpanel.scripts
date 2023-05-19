@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+
+cd /var/cpanel/users
+
+for user in *; do
+	python3 /root/quota-checker/main.py $user
+done
+
+
