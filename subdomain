@@ -26,9 +26,9 @@ else
         echo "Directory: $dir"
 
         # cpapi2 --user=casaludica SubDomain addsubdomain domain=franquia.casaludica.com.br rootdomain=casaludica.com.br dir=public_html/franquiateste
-    elif ["$1" == "delete"]
+    elif [ "$1" == "delete" ]
         echo "delete command detected"
-        exit 1
+        # cpapi2 --user=casaludica SubDomain delsubdomain domain=franquias.casaludica.com.br
     else
         echo "usage:"
         echo "subdomain create user=username domain=domain.com dir=public_html/example"
