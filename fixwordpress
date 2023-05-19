@@ -1,0 +1,58 @@
+#!/usr/bin/sh
+
+if [ -z "$1" ]
+then
+    echo "usage:"
+    echo "fixwordpress username"
+else
+    cd /home/$1/public_html
+
+    echo "rebuilding .htaccess"
+    echo "# BEGIN WordPress
+        <IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteBase /
+        RewriteRule ^index\.php$ - [L]
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . /index.php [L]
+        </IfModule>
+
+        # END WordPress
+
+        # Protect the .htaccess
+        <Files .htaccess>
+        Order allow,deny
+        Deny from all
+        </Files>
+
+        # Disable directory browsing
+        Options All -Indexes
+
+        # Protect wp-config.php
+        <Files wp-config.php>
+        Order allow,deny
+        Deny from all
+        </Files>
+
+        # Block include-only files
+        <IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteBase /
+        RewriteRule ^wp-admin/includes/ - [F,L]
+        RewriteRule !^wp-includes/ - [S=3]
+        RewriteRule ^wp-includes/[^/]+\.php$ - [F,L]
+        RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]
+        RewriteRule ^wp-includes/theme-compat/ - [F,L]
+        </IfModule>" > .htaccess
+
+    echo "fixing ownership of $1"
+    chown -R $1:$1 *
+
+    echo "fixing permissions of directories"
+    find . -type d -exec chmod 755 {} \;
+
+    echo "fixing permissions of files"
+    find . -type f -exec chmod 644 {} \;
+
+fi
