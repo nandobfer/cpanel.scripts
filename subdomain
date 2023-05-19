@@ -2,7 +2,9 @@
 
 if [ -z "$1" ]
 then
-    echo "usage: subdomain create user=username domain=domain.com dir=public_html/example"
+    echo "usage:"
+    echo "subdomain create user=username domain=domain.com dir=public_html/example"
+    echo "subdomain delete user=username domain=domain.com"
 else
     if [ "$1" == "create" ]
     then
@@ -27,6 +29,10 @@ else
     elif ["$1" == "delete"]
         echo "delete command detected"
         exit 1
+    else
+        echo "usage:"
+        echo "subdomain create user=username domain=domain.com dir=public_html/example"
+        echo "subdomain delete user=username domain=domain.com"
     fi
 
     # Process the rest of the arguments
