@@ -25,11 +25,21 @@ else
         echo "Domain: $domain"
         echo "Directory: $dir"
 
-        # cpapi2 --user=casaludica SubDomain addsubdomain domain=franquia.casaludica.com.br rootdomain=casaludica.com.br dir=public_html/franquiateste
+        cpapi2 --user=$user SubDomain addsubdomain domain=$domain rootdomain=$domain dir=$dir
     elif [ "$1" == "delete" ]
     then
         echo "delete command detected"
-        # cpapi2 --user=casaludica SubDomain delsubdomain domain=franquias.casaludica.com.br
+        shift  # This will shift the positional parameters, effectively removing $1
+        for arg in "$@"; do
+            IFS='=' read -r key value <<< "$arg"
+            case "$key" in
+                user) user=$value ;;
+                domain) domain=$value ;;
+                dir) dir=$value ;;
+                *) echo "Unknown argument $key. Exiting."; exit 1 ;;
+            esac
+        done
+        cpapi2 --user=$user SubDomain delsubdomain domain=$domain
     else
         echo "usage:"
         echo "subdomain create user=username domain=domain.com dir=public_html/example"
