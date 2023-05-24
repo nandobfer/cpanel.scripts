@@ -1,0 +1,7 @@
+#!usr/bin/sh
+
+echo "fixing permissions of directories"
+find . -type d -exec chmod 755 {} \;
+
+echo "fixing permissions of files"
+find . -type f -exec chmod 644 {} \;
