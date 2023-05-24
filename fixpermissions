@@ -1,4 +1,4 @@
-#!usr/bin/sh
+#!/usr/bin/sh
 
 echo "fixing permissions of directories"
 find . -type d -exec chmod 755 {} \;
