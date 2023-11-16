@@ -1,8 +1,8 @@
 #!/usr/bin/sh
 
-cd ~/cpanel.scripts
+cd $HOME/cpanel.scripts
 git pull
 
 for file in *; do
-  cp "$file" ~/bin && chmod +x "~/bin/$file"
+  cp "$file" $HOME/bin && chmod +x "$HOME/bin/$file"
 done
