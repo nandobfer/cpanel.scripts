@@ -33,4 +33,7 @@ RewriteRule . /index.php [L]
     echo "fixing permissions of files"
     find . -type f -exec chmod 644 {} \;
 
+    echo "restarting webserver"
+    service lsws restart
+
 fi
