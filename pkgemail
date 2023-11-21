@@ -14,6 +14,7 @@ else
     mailboxes="/home/$user/mail/$domain"
     destination=$savedir/$user.zip
 
+    cd $mailboxes
     echo "compressing $mailboxes into $destination"
-    zip -r $destination $mailboxes/*
+    zip -rq $destination *
 fi
