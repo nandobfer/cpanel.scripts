@@ -26,4 +26,15 @@ else
 
     echo "extracting files"
     unzip -q $domain.zip
+    rm -rf $domain.zip
+
+    for dir in */; do
+        if [ -d "$dir" ]; then
+            echo "Setting up Maildir in $dir"
+            cd "$dir"
+            mkdir -p Maildir
+            mv * Maildir
+            cd ..
+        fi
+    done
 fi
