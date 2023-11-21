@@ -1,0 +1,15 @@
+#!/usr/bin/sh
+
+if [ $# -ne 2 ]
+then
+    echo "usage:"
+    echo "pkgemail username domain"
+else
+    # do stuff
+    user=$1
+    domain=$2
+
+    mailboxes="/home/$user/mail/$domain"
+
+    echo $mailboxes
+fi
