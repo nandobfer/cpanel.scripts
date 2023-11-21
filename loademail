@@ -14,7 +14,8 @@ else
     fi
 
     echo "you should have created every email accounts before running this script"
-    read -p "press enter to continue when/if done"
+    echo "continue?"
+    read input
 
     origin=agenciaboz:$oldserverdir/$domain.zip
     echo "downloading emails from $origin into $basedir"
