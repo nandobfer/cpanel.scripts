@@ -1,0 +1,14 @@
+#!/usr/bin/sh
+
+if [ $# -ne 1 ]
+then
+    echo "usage:"
+    echo "loademail domain"
+else
+    oldserverdir=/root/mailsync
+    domain=$1
+    basedir=/home/vmail/$domain
+
+    cd $basedir
+    scp agenciaboz:$oldserverdir/$domain.zip .
+fi

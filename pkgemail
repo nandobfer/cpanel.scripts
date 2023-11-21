@@ -12,9 +12,12 @@ else
     domain=$2
 
     mailboxes="/home/$user/mail/$domain"
-    destination=$savedir/$user.zip
+    destination=$savedir/$domain.zip
 
     cd $mailboxes
     echo "compressing $mailboxes into $destination"
     zip -rq $destination *
+
+    echo "finished. run this command on the new server:"
+    echo "loademail $domain"
 fi
