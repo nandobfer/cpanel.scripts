@@ -41,4 +41,7 @@ else
 
     echo "setting up permissions"
     chown -R vmail:vmail *
+
+    echo "finished"
+    exit 0
 fi
