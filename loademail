@@ -9,6 +9,9 @@ else
     domain=$1
     basedir=/home/vmail/$domain
 
+    origin=agenciaboz:$oldserverdir/$domain.zip
+    echo "downloading emails from $origin into $basedir"
+
     cd $basedir
-    scp agenciaboz:$oldserverdir/$domain.zip .
+    scp $origin .
 fi
