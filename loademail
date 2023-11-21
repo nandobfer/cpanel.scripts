@@ -13,6 +13,7 @@ else
         exit 1
     fi
 
+    echo
     echo "you should have created every email accounts before running this script"
     echo "continue?"
     read input
@@ -22,4 +23,7 @@ else
 
     cd $basedir
     scp $origin .
+
+    echo "extracting files"
+    unzip -q $domain.zip
 fi
