@@ -1,0 +1,25 @@
+#!/usr/bin/sh
+
+if [ $# -ne 1 ]
+then
+    echo "usage:"
+    echo "pkgwordpress username"
+else
+    echo "packaging $1"
+
+    cd /home/$1/public_html
+    pwd
+
+    dbname=$(grep "DB_NAME" wp-config.php | cut -d "'" -f 4)
+    echo "database name: $dbname"
+
+    echo "dumping database"
+    mysqldump $dbname > "${1}.sql"
+
+    echo "compressing files"
+    zip -rq  "../${1}.zip" *
+
+    echo "finished. run this command on the new server"
+    echo "scp agenciaboz:/home/${1}/${1}.zip ."
+fi
+
