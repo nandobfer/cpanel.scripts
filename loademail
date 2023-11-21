@@ -37,4 +37,7 @@ else
             cd ..
         fi
     done
+
+    echo "setting up permissions"
+    chown -R vmail:vmail *
 fi
