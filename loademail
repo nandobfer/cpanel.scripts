@@ -8,6 +8,13 @@ else
     oldserverdir=/root/mailsync
     domain=$1
     basedir=/home/vmail/$domain
+    if [ ! -d "$basedir" ]; then
+        echo "$basedir not found, create the website on cyberpanel first"
+        exit 1
+    fi
+
+    echo "you should have created every email accounts before running this script"
+    read -p "press enter to continue when/if done"
 
     origin=agenciaboz:$oldserverdir/$domain.zip
     echo "downloading emails from $origin into $basedir"
