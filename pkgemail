@@ -5,11 +5,15 @@ then
     echo "usage:"
     echo "pkgemail username domain"
 else
-    # do stuff
+    savedir=/root/mailsync
+    [ ! -d "$savedir" ] && mkdir "$savedir"
+
     user=$1
     domain=$2
 
     mailboxes="/home/$user/mail/$domain"
+    destination=$savedir/$user.zip
 
-    echo $mailboxes
+    echo "compressing $mailboxes into $destination"
+    zip -r $destination $mailboxes/*
 fi
