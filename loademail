@@ -14,9 +14,9 @@ else
     fi
 
     echo
-    echo "you should have created every email accounts before running this script"
-    echo "continue?"
-    read input
+    # echo "you should have created every email accounts before running this script"
+    # echo "continue?"
+    # read input
 
     origin=agenciaboz:$oldserverdir/$domain.zip
     echo "downloading emails from $origin into $basedir"
@@ -33,7 +33,10 @@ else
             echo "Setting up Maildir in $dir"
             cd "$dir"
             mkdir -p Maildir
-            mv * Maildir
+            # Move all files and directories, including hidden ones
+            shopt -s extglob dotglob
+            mv !(Maildir) Maildir/
+            shopt -u extglob dotglob
             cd ..
         fi
     done
