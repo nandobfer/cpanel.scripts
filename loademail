@@ -34,9 +34,7 @@ else
             cd "$dir"
             mkdir -p Maildir
             # Move all files and directories, including hidden ones
-            shopt -s extglob dotglob
-            mv "!(Maildir)" Maildir/
-            shopt -u extglob dotglob
+            find . -maxdepth 1 ! -name '.' ! -name 'Maildir' -exec mv {} Maildir/ \;
             cd ..
         fi
     done
