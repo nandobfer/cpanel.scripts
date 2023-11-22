@@ -49,8 +49,7 @@ else
 
     echo
     echo "setting up permissions"
-    user=$(stat -c "%U" "$basedir")
-    fixwordpress $user
+    fixwordpress $domain
 
     echo "finished"
     exit 0
