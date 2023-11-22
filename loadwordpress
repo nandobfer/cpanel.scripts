@@ -37,6 +37,7 @@ else
     echo
     echo "importing database data"
     mysql $account < $domain.sql
+    rm -rf $domain.sql
 
     echo
     echo "setting up wp-config.php for new database"
