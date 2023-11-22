@@ -8,7 +8,6 @@ else
     oldserverdir=/root/wpsync
     domain=$1
 
-    # create cyberpanel website
     echo "creating website on cyberpanel"
     cyberpanel createWebsite --package Default --owner admin --domainName $domain --email mizael@agenciazop.com.br --php 8.1 --openBasedir 1
     basedir=/home/$domain/public_html
@@ -20,10 +19,6 @@ else
     password_lenght=10
     db_password=$(openssl rand -base64 32 | tr -dc 'a-zA-Z0-9' | head -c "$password_lenght")
     cyberpanel createDatabase --databaseWebsite $domain --dbName $account --dbUsername $account --dbPassword $db_password
-
-    # echo "you should have created every email accounts before running this script"
-    # echo "continue?"
-    # read input
 
     origin=agenciaboz:$oldserverdir/$domain.zip
     echo "downloading files from $origin into $basedir"
@@ -43,7 +38,6 @@ else
     echo "setting up wp-config.php for new database"
     wp_config_file="./wp-config.php"
 
-    # Use sed to replace the values in the wp-config.php file
     sed -i "s/define( 'DB_NAME', '.*' );/define( 'DB_NAME', '$account' );/" "$wp_config_file"
     sed -i "s/define( 'DB_USER', '.*' );/define( 'DB_USER', '$account' );/" "$wp_config_file"
     sed -i "s/define( 'DB_PASSWORD', '.*' );/define( 'DB_PASSWORD', '$db_password' );/" "$wp_config_file"
