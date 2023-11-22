@@ -2,9 +2,13 @@
 
 if [ -z "$1" ]
 then
-    echo "usage (inside wordpress folder):"
-    echo "fixwordpress username"
+    echo "usage:"
+    echo "fixwordpress domain"
 else
+    cd /home/$1/public_html
+
+    user=$(stat -c "%U" "../.")
+
     echo "rebuilding .htaccess"
     echo "# BEGIN WordPress
 # As diretrizes (linhas) entre "BEGIN WordPress" e "END WordPress" são
@@ -22,8 +26,8 @@ RewriteRule . /index.php [L]
 
 # END WordPress" > .htaccess
 
-    echo "fixing ownership of $1"
-    chown -R $1:$1 *
+    echo "fixing ownership of $user"
+    chown -R $user:$user *
 
     echo "fixing permissions of directories"
     find . -type d -exec chmod 755 {} \;
