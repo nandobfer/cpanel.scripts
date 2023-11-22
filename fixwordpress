@@ -2,11 +2,9 @@
 
 if [ -z "$1" ]
 then
-    echo "usage:"
+    echo "usage (inside wordpress folder):"
     echo "fixwordpress username"
 else
-    cd /home/$1/public_html
-
     echo "rebuilding .htaccess"
     echo "# BEGIN WordPress
 # As diretrizes (linhas) entre "BEGIN WordPress" e "END WordPress" são
