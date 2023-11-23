@@ -1,0 +1,33 @@
+#!/usr/bin/sh
+
+if [ $# -ne 4 ]
+then
+    echo "usage:"
+    echo "pkgwpsubdomain username domain subdomain path"
+else
+    savedir=/root/wpsync
+    [ ! -d "$savedir" ] && mkdir "$savedir"
+
+    username=$1
+    domain=$2
+    subdomain=$3
+    path=$4
+
+    echo "packaging $subdomain"
+
+    cd /home/$username/$path
+    pwd
+
+    dbname=$(grep "DB_NAME" wp-config.php | cut -d "'" -f 4)
+    echo "database name: $dbname"
+
+    echo "dumping database"
+    mysqldump $dbname > "${subdomain}.sql"
+
+    echo "compressing files"
+    zip -rq  "${savedir}/${subdomain}.zip" *
+
+    echo "finished. run this command on the new server"
+    echo "loadwpsubdomain $domain $subdomain"
+fi
+

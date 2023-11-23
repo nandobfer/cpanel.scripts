@@ -1,0 +1,41 @@
+#!/usr/bin/sh
+
+if [ -z "$2" ]
+then
+    echo "usage:"
+    echo "fixwordpress domain subdomain"
+else
+    cd /home/$1/$2
+
+    user=$(stat -c "%U" "../.")
+
+    echo "rebuilding .htaccess"
+    echo "# BEGIN WordPress
+# As diretrizes (linhas) entre "BEGIN WordPress" e "END WordPress" são
+# geradas dinamicamente e só devem ser modificadas através de filtros do WordPress.
+# Quaisquer alterações nas diretivas entre esses marcadores serão sobrescritas.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress" > .htaccess
+
+    echo "fixing ownership of $user"
+    chown -R $user:$user *
+
+    echo "fixing permissions of directories"
+    find . -type d -exec chmod 755 {} \;
+
+    echo "fixing permissions of files"
+    find . -type f -exec chmod 644 {} \;
+
+    echo "restarting webserver"
+    service lsws restart
+
+fi
