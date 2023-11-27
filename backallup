@@ -1,7 +1,7 @@
-#!/usr/bin/sh
+#!/bin/bash
 
-cd /var/cpanel/users
+json_output=$(cyberpanel listWebsitesJson)
 
-for user in *; do
-        python3 /root/auto-backup/backup.py $user
+echo "$json_output" | jq -r '.[] | .domain' | while read domain; do
+    python3 /root/auto_backup/cyberpanel_backup.py "$domain"
 done
