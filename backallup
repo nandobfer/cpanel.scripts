@@ -1,6 +1,8 @@
 #!/bin/bash
 
 json_output=$(cyberpanel listWebsitesJson)
+json_output=${json_output%\"}
+json_output=${json_output#\"}
 
 echo $json_output | jq -r '.[] | .domain' | while read domain; do
     python3 /root/auto_backup/cyberpanel_backup.py "$domain"
