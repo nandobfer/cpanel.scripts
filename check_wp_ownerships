@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Loop through each directory in /home
+for dir in /home/*; do
+  # Check if the directory exists and is a directory
+  if [[ -d "$dir/public_html" ]]; then
+    # Check the ownership of the public_html directory
+    owner=$(stat -c '%U' "$dir/public_html")
+    if [[ "$owner" == "root" ]]; then
+      # Echo the directory name if owned by root
+      echo "Directory with public_html owned by root: $dir"
+    fi
+  fi
+done
+
