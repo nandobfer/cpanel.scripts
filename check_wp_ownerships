@@ -8,7 +8,7 @@ for dir in /home/*; do
     owner=$(stat -c '%U' "$dir/public_html")
     if [[ "$owner" == "root" ]]; then
       # Echo the directory name if owned by root
-      echo "Directory with public_html owned by root: $dir"
+      echo "$dir"
     fi
   fi
 done
