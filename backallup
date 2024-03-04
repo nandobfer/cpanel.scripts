@@ -3,3 +3,4 @@
 cd /root/auto_backup
 
 ./backallup.py
+./backdb.py
