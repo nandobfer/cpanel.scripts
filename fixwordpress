@@ -27,7 +27,7 @@ RewriteRule . /index.php [L]
 # END WordPress" > .htaccess
 
     echo "fixing ownership of $user"
-    chown -R $user:$user *
+    chown -R $user:$user .
 
     echo "fixing permissions of directories"
     find . -type d -exec chmod 755 {} \;
