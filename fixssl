@@ -1,0 +1,3 @@
+#!usr/bin/sh
+
+wget -O -  https://get.acme.sh | sh
