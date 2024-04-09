@@ -1,0 +1,8 @@
+#!/usr/bin/sh
+
+echo -e "resizepart\n1\nYes\n100%\nquit" | sudo parted ---pretend-input-tty /dev/sda
+
+sudo partprobe /dev/sda
+sudo resize2fs /dev/sda1
+
+df -h
