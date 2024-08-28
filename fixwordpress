@@ -24,6 +24,13 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 </IfModule>
 
+# BEGIN Block WordPress xmlrpc.php requests
+ <Files xmlrpc.php>
+ order deny,allow
+ deny from all
+ </Files>
+# END WordPress xmlrpc.php requests
+
 # END WordPress" > .htaccess
 
     echo "fixing ownership of $user"
