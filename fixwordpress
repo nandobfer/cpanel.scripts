@@ -31,6 +31,12 @@ RewriteRule . /index.php [L]
  </Files>
 # END WordPress xmlrpc.php requests
 
+# tal de yandex
+SetEnvIfNoCase User-Agent "^Yandex*" bad_bot
+Order Deny,Allow
+Deny from env=bad_bot
+# fim do tal de yandex
+
 # END WordPress" > .htaccess
 
     echo "fixing ownership of $user"
