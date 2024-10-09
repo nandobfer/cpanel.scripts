@@ -1,47 +1,37 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]
-then
-    echo "usage:"
-    echo "loademail domain"
-else
-    oldserverdir=/root/mailsync
-    domain=$1
-    basedir=/home/vmail/$domain
-    if [ ! -d "$basedir" ]; then
-        echo "$basedir not found, create the website on cyberpanel first"
-        exit 1
-    fi
+# Set the root directory
+ROOT_DIR="/home/vmail/casaludica.com.br"
+OLD_DIR="${ROOT_DIR}/0_VELHO"
 
-    echo
-    # echo "you should have created every email accounts before running this script"
-    # echo "continue?"
-    # read input
-
-    origin=agenciaboz:$oldserverdir/$domain.zip
-    echo "downloading emails from $origin into $basedir"
-
-    cd $basedir
-    scp $origin .
-
-    echo "extracting files"
-    unzip -q $domain.zip
-    rm -rf $domain.zip
-
-    for dir in */; do
-        if [ -d "$dir" ]; then
-            echo "Setting up Maildir in $dir"
-            cd "$dir"
-            mkdir -p Maildir
-            # Move all files and directories, including hidden ones
-            find . -maxdepth 1 ! -name '.' ! -name 'Maildir' -exec mv {} Maildir/ \;
-            cd ..
-        fi
-    done
-
-    echo "setting up permissions"
-    chown -R vmail:vmail *
-
-    echo "finished"
-    exit 0
+# Check if OLD_DIR exists
+if [ ! -d "$OLD_DIR" ]; then
+    echo "Directory $OLD_DIR does not exist."
+    exit 1
 fi
+
+# Iterate through each directory in 0_VELHO
+for dir in "$OLD_DIR"/*; do
+    if [ -d "$dir" ]; then
+        # Extract the directory name
+        DIR_NAME=$(basename "$dir")
+        TARGET_DIR="${ROOT_DIR}/${DIR_NAME}/Maildir"
+
+        echo "Copying $DIR_NAME"
+
+        # Create the target directory if it does not exist
+        mkdir -p "$TARGET_DIR"
+
+       # Ensuring all files and sub-directories, including hidden ones, are copied
+        rsync -aHAXv --no-compress --info=progress2 "$dir/" "$TARGET_DIR/"
+
+
+        # Prompt user input
+        echo "Account ${DIR_NAME} was copied."
+        # Remove the original directory
+        rm -rf "$dir"
+        echo "Directory $dir deleted."
+    fi
+done
+
+echo "All processes completed."
