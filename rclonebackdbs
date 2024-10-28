@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-BACKUP_DIR="~/backup"
+BACKUP_DIR="/home/backup"
 
 [ ! -d "$BACKUP_DIR" ] && mkdir "$BACKUP_DIR"
 
