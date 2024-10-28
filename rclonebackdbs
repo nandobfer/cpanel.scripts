@@ -1,0 +1,19 @@
+#!/usr/bin/sh
+
+BACKUP_DIR="~/backup"
+
+[ ! -d "$BACKUP_DIR" ] && mkdir "$BACKUP_DIR"
+
+cd $BACKUP_DIR
+
+echo dumping databases
+mysql -N -e 'show databases' | while read dbname; do mysqldump --complete-insert "$dbname" > "$dbname".sql; done
+
+for file in *; do
+  echo uploading "$file"
+  FILE_NAME="$(date +\%Y-\%m-\%d)/$file"
+  rclone copy "$file" "drive:backup-boz-app-br/$FILE_NAME"
+  rm -rf "$file"
+done
+
+
